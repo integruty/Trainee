@@ -8,9 +8,12 @@ public class LevelEnterHang : MonoBehaviour
 {
     public Text level;
     public int GoToLevel;
-    void Awake() 
-    {
-        level.text = GoToLevel.ToString();
+    void Awake()
+    { if (GoToLevel != 0)
+        { level.text = "Level "  +  GoToLevel.ToString(); }
+        else
+        { level.text = "Menu"; }
+    
     }
     void OnTriggerEnter(Collider trig) 
     {

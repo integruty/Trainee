@@ -40,10 +40,10 @@ public class AnimateMoveControls : MonoBehaviour
 
 	int isWalkHash, isRunHash, isJumpHash;
 
-	Vector2 CurMoveInput;
+	public Vector2 CurMoveInput;
 
-	Vector3 CurMove, CurRun, forward, right, RealMove;
-
+	Vector3 CurMove, CurRun, forward, right;
+	public Vector3 RealMove,MoveVec;
 	bool isMovementPressed;
 
 	bool isRunPressed;
@@ -62,8 +62,7 @@ public class AnimateMoveControls : MonoBehaviour
 
 	{
 		VarSetup();
-		Debug.Log("1");
-
+		
 		isWalkHash = Animator.StringToHash("walk");
 
 		isRunHash = Animator.StringToHash("run");
@@ -169,10 +168,7 @@ public class AnimateMoveControls : MonoBehaviour
 	}
 	void CamHang(InputAction.CallbackContext context)
 	{
-		
-		if (context.control.displayName=="k") 
-		{
-			curCam++;
+				curCam++;
 			if (curCam >= cameras.Length)
 				curCam=0;
 			target = cameras[curCam].transform;
@@ -182,7 +178,7 @@ public class AnimateMoveControls : MonoBehaviour
 				else
 					cameras[i].SetActive(true);
 			}
-		}
+		
 	}
 	void AnimHang()
 	{
@@ -270,8 +266,8 @@ public class AnimateMoveControls : MonoBehaviour
 		
 		forward.Normalize ();
 		right.Normalize ();
-
-		RealMove=(CurMoveInput.y*forward+CurMoveInput.x*right+Vector3.up*CurYVel)*Time.deltaTime*speed;
+		MoveVec = CurMoveInput.y * forward + CurMoveInput.x * right + Vector3.up;
+		RealMove =(CurMoveInput.y*forward+CurMoveInput.x*right+Vector3.up*CurYVel)*Time.deltaTime*speed;
 		CurRun=(CurMoveInput.y * runMult * forward+CurMoveInput.x*right * runMult + Vector3.up*CurYVel)*Time.deltaTime*speed;
 	}
     // Update is called once per frame
@@ -290,8 +286,7 @@ public class AnimateMoveControls : MonoBehaviour
 		AnimHang();
 		
 		if (isRunPressed)
-	{
-			Debug.Log("movin");
+	{			
 		charControl.Move(CurRun);
 	} else {
 		charControl.Move(RealMove); 
@@ -303,7 +298,7 @@ public class AnimateMoveControls : MonoBehaviour
 	{	
 		playerInput.Controls.Enable();
 		
-		Debug.Log("2");
+		
 	}
 	void OnDisable()
 	{

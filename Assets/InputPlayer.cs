@@ -49,6 +49,14 @@ public class @InputPlayer : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": ""NormalizeVector2"",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pick"",
+                    ""type"": ""Value"",
+                    ""id"": ""05a4734d-030a-45a4-9aa8-5d2a15dc5bc0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": ""NormalizeVector2"",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -139,6 +147,17 @@ public class @InputPlayer : IInputActionCollection, IDisposable
                     ""action"": ""Cameras"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a9aa8909-caef-439a-a5f0-478599073aba"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Player"",
+                    ""action"": ""Pick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -157,6 +176,7 @@ public class @InputPlayer : IInputActionCollection, IDisposable
         m_Controls_Run = m_Controls.FindAction("Run", throwIfNotFound: true);
         m_Controls_Jump = m_Controls.FindAction("Jump", throwIfNotFound: true);
         m_Controls_Cameras = m_Controls.FindAction("Cameras", throwIfNotFound: true);
+        m_Controls_Pick = m_Controls.FindAction("Pick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -210,6 +230,7 @@ public class @InputPlayer : IInputActionCollection, IDisposable
     private readonly InputAction m_Controls_Run;
     private readonly InputAction m_Controls_Jump;
     private readonly InputAction m_Controls_Cameras;
+    private readonly InputAction m_Controls_Pick;
     public struct ControlsActions
     {
         private @InputPlayer m_Wrapper;
@@ -218,6 +239,7 @@ public class @InputPlayer : IInputActionCollection, IDisposable
         public InputAction @Run => m_Wrapper.m_Controls_Run;
         public InputAction @Jump => m_Wrapper.m_Controls_Jump;
         public InputAction @Cameras => m_Wrapper.m_Controls_Cameras;
+        public InputAction @Pick => m_Wrapper.m_Controls_Pick;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -239,6 +261,9 @@ public class @InputPlayer : IInputActionCollection, IDisposable
                 @Cameras.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnCameras;
                 @Cameras.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnCameras;
                 @Cameras.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnCameras;
+                @Pick.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPick;
+                @Pick.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPick;
+                @Pick.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPick;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -255,6 +280,9 @@ public class @InputPlayer : IInputActionCollection, IDisposable
                 @Cameras.started += instance.OnCameras;
                 @Cameras.performed += instance.OnCameras;
                 @Cameras.canceled += instance.OnCameras;
+                @Pick.started += instance.OnPick;
+                @Pick.performed += instance.OnPick;
+                @Pick.canceled += instance.OnPick;
             }
         }
     }
@@ -274,5 +302,6 @@ public class @InputPlayer : IInputActionCollection, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnCameras(InputAction.CallbackContext context);
+        void OnPick(InputAction.CallbackContext context);
     }
 }

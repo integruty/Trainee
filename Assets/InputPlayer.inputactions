@@ -36,6 +36,14 @@
                     "expectedControlType": "Button",
                     "processors": "NormalizeVector2",
                     "interactions": ""
+                },
+                {
+                    "name": "Pick",
+                    "type": "Value",
+                    "id": "05a4734d-030a-45a4-9aa8-5d2a15dc5bc0",
+                    "expectedControlType": "Button",
+                    "processors": "NormalizeVector2",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -124,6 +132,17 @@
                     "processors": "",
                     "groups": "Player",
                     "action": "Cameras",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a9aa8909-caef-439a-a5f0-478599073aba",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player",
+                    "action": "Pick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

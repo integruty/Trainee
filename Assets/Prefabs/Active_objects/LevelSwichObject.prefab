@@ -584,7 +584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3352525945355262364}
   m_Layer: 0
-  m_Name: LevelObjects
+  m_Name: LevelSwichObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

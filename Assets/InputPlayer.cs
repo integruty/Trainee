@@ -46,7 +46,7 @@ public class @InputPlayer : IInputActionCollection, IDisposable
                     ""name"": ""Cameras"",
                     ""type"": ""Value"",
                     ""id"": ""5ccbe035-a077-4531-9ccb-27fbbaf19913"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": ""NormalizeVector2"",
                     ""interactions"": """"
                 },
@@ -54,6 +54,14 @@ public class @InputPlayer : IInputActionCollection, IDisposable
                     ""name"": ""Pick"",
                     ""type"": ""Value"",
                     ""id"": ""05a4734d-030a-45a4-9aa8-5d2a15dc5bc0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": ""NormalizeVector2"",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""CamerasSwich"",
+                    ""type"": ""Button"",
+                    ""id"": ""d95802ef-75d8-4174-bb0e-81aadd3ad2b1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": ""NormalizeVector2"",
                     ""interactions"": """"
@@ -139,23 +147,78 @@ public class @InputPlayer : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1d0256bb-097d-4d91-9e8f-5b80055fa62b"",
-                    ""path"": ""<Keyboard>/k"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player"",
-                    ""action"": ""Cameras"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a9aa8909-caef-439a-a5f0-478599073aba"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Player"",
                     ""action"": ""Pick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""d8037bcb-13a9-4c09-9737-88b8aef0325a"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cameras"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""b0dd4ea6-8d26-465b-992b-b0e05fecc9c2"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Player"",
+                    ""action"": ""Cameras"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""63bf089c-78e0-4cf6-952b-26b846df21fe"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Player"",
+                    ""action"": ""Cameras"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""523d675e-5a93-4b4b-8520-09ad887cde83"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Player"",
+                    ""action"": ""Cameras"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""6d550992-f878-411f-b15d-3e2bc93670a6"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Player"",
+                    ""action"": ""Cameras"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4fd79d11-4298-4ad0-85a9-f7959b23daa3"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Player"",
+                    ""action"": ""CamerasSwich"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -177,6 +240,7 @@ public class @InputPlayer : IInputActionCollection, IDisposable
         m_Controls_Jump = m_Controls.FindAction("Jump", throwIfNotFound: true);
         m_Controls_Cameras = m_Controls.FindAction("Cameras", throwIfNotFound: true);
         m_Controls_Pick = m_Controls.FindAction("Pick", throwIfNotFound: true);
+        m_Controls_CamerasSwich = m_Controls.FindAction("CamerasSwich", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -231,6 +295,7 @@ public class @InputPlayer : IInputActionCollection, IDisposable
     private readonly InputAction m_Controls_Jump;
     private readonly InputAction m_Controls_Cameras;
     private readonly InputAction m_Controls_Pick;
+    private readonly InputAction m_Controls_CamerasSwich;
     public struct ControlsActions
     {
         private @InputPlayer m_Wrapper;
@@ -240,6 +305,7 @@ public class @InputPlayer : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Controls_Jump;
         public InputAction @Cameras => m_Wrapper.m_Controls_Cameras;
         public InputAction @Pick => m_Wrapper.m_Controls_Pick;
+        public InputAction @CamerasSwich => m_Wrapper.m_Controls_CamerasSwich;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -264,6 +330,9 @@ public class @InputPlayer : IInputActionCollection, IDisposable
                 @Pick.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPick;
                 @Pick.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPick;
                 @Pick.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPick;
+                @CamerasSwich.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnCamerasSwich;
+                @CamerasSwich.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnCamerasSwich;
+                @CamerasSwich.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnCamerasSwich;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -283,6 +352,9 @@ public class @InputPlayer : IInputActionCollection, IDisposable
                 @Pick.started += instance.OnPick;
                 @Pick.performed += instance.OnPick;
                 @Pick.canceled += instance.OnPick;
+                @CamerasSwich.started += instance.OnCamerasSwich;
+                @CamerasSwich.performed += instance.OnCamerasSwich;
+                @CamerasSwich.canceled += instance.OnCamerasSwich;
             }
         }
     }
@@ -303,5 +375,6 @@ public class @InputPlayer : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnCameras(InputAction.CallbackContext context);
         void OnPick(InputAction.CallbackContext context);
+        void OnCamerasSwich(InputAction.CallbackContext context);
     }
 }

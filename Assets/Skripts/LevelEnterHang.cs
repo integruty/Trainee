@@ -12,12 +12,12 @@ public class LevelEnterHang : MonoBehaviour
     { if (GoToLevel != 0)
         { level.text = "Level "  +  GoToLevel.ToString(); }
         else
-        { level.text = "Menu"; }
+        { level.text = "Hub"; }
     
     }
     void OnTriggerEnter(Collider trig) 
     {
-        Debug.Log("Triggered");
+        if(trig.tag=="Player")
         SceneManager.LoadScene(GoToLevel);
     }
 }

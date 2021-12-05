@@ -10,7 +10,7 @@ public class AnimateMoveControls : MonoBehaviour
 
 	public float speed = 1f;
 
-	float RF = .9f;
+	float RF = .1f;
 
 	public float JumpForce = 5;
 
@@ -43,7 +43,7 @@ public class AnimateMoveControls : MonoBehaviour
 	public Vector2 CurMoveInput;
 
 	Vector3 CurMove, CurRun, forward, right;
-	public Vector3 RealMove,MoveVec;
+	Vector3 RealMove;
 	bool isMovementPressed;
 
 	bool isRunPressed;
@@ -87,7 +87,7 @@ public class AnimateMoveControls : MonoBehaviour
 		playerInput.Controls.Jump.started += onJump;
 		playerInput.Controls.Jump.canceled += onJump;
 
-		playerInput.Controls.Cameras.started += CamHang;
+		playerInput.Controls.CamerasSwich.started += CamHang;
 	}
 
 	void VarSetup()
@@ -266,7 +266,8 @@ public class AnimateMoveControls : MonoBehaviour
 		
 		forward.Normalize ();
 		right.Normalize ();
-		MoveVec = CurMoveInput.y * forward + CurMoveInput.x * right + Vector3.up;
+		
+		
 		RealMove =(CurMoveInput.y*forward+CurMoveInput.x*right+Vector3.up*CurYVel)*Time.deltaTime*speed;
 		CurRun=(CurMoveInput.y * runMult * forward+CurMoveInput.x*right * runMult + Vector3.up*CurYVel)*Time.deltaTime*speed;
 	}

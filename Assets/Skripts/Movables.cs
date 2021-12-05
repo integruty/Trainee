@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 public class Movables : MonoBehaviour
 {
     GameObject player;
+    public Rigidbody Rb;
+    
+    Vector3 forward;
     public Transform playerPos;
     public Transform block;
     public bool NearPlayer;
@@ -28,36 +31,37 @@ public class Movables : MonoBehaviour
         if (NearPlayer&!Picked) 
             {
                 Picked = true;
-                Debug.Log(Picked);
+            Rb.useGravity = false;
+               
             }
         
-            else if (NearPlayer & Picked) 
+            else if (Picked) 
             { 
-                Picked = false; 
-                Debug.Log(Picked); 
+                Picked = false;
+            Rb.useGravity = true;
+             
             }
     }
     void OnTriggerEnter(Collider trig)
     {
         if (trig.tag == "Player")
-            Debug.Log("PlayerNear");
+            
         NearPlayer = true;
     }
     void OnTriggerExit(Collider trig)
     {
         if (trig.tag == "Player")
-            Debug.Log("PlayerLeaved");
+            
         NearPlayer = false;
     }
     // Update is called once per frame
     void Update()
     {
         if (Picked) 
-        {
-            Vector3 forward=playerPos.forward;
-            forward.Normalize();
+        {            
             block.position = playerPos.position;
-            block.Translate(player.GetComponent<AnimateMoveControls>().RealMove+ player.GetComponent<AnimateMoveControls>().MoveVec*2, playerPos);
+            block.rotation = playerPos.rotation;
+            block.Translate(0f, .75f, 1.2f);
         }
         
     }

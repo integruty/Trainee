@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - camera
+  - PlayerHead
   layers:
   - Default
   - TransparentFX

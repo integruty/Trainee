@@ -13,11 +13,12 @@ public class CAMERA : MonoBehaviour
     public float SRot, SAng;
     public float maxRotate =60;
     public float minRotate = -60;
-    public float maxAngle= -30;
+    public float maxAngle= 30;
     public float minAngle = 0;
     // Start is called before the first frame update
     void Awake()
-    {   SRot = hinge.transform.rotation.y*180;
+    {   
+        SRot = hinge.transform.rotation.y*180;
         SAng = hinge.transform.rotation.x*180;
         z = SRot;
         y = SAng;
@@ -29,11 +30,11 @@ public class CAMERA : MonoBehaviour
     void CamControl(InputAction.CallbackContext context) 
     {  CurRotInput = context.ReadValue<Vector2>();
         y += -CurRotInput.y * 15;
-        if (y>maxAngle+SAng&y>minAngle+SAng)
+        if (y>maxAngle+SAng||y<minAngle+SAng)
             y += CurRotInput.y * 15;
         Debug.Log("y=" + y);
         z += CurRotInput.x * 30;
-        if (z < maxRotate+SRot & z > minRotate+SRot)
+        if (z >maxRotate+SRot || z < minRotate+SRot)
             z += -CurRotInput.x * 30;
         Debug.Log("z=" + z);
         isMovin = CurRotInput.y != 0 || CurRotInput.x != 0;

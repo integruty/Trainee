@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,15 +53,14 @@
     <UnityVersion>2020.3.23f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="I:\VSUnity\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Assets\Skripts\Movables.cs" />
     <Compile Include="Assets\Skripts\CAMERA.cs" />
     <Compile Include="Assets\ForeignAssets\Jammo-Character\Scripts\MovementInput.cs" />
     <Compile Include="Assets\Skripts\LevelEnterHang.cs" />
     <Compile Include="Assets\Skripts\AnimateMoveControls.cs" />
-    <Compile Include="Assets\InputPlayer.cs" />
+    <Compile Include="Assets\Skripts\InputPlayer.cs" />
+    <Compile Include="Assets\Skripts\UpgradeBot.cs" />
+    <Compile Include="Assets\Skripts\EnemyAI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

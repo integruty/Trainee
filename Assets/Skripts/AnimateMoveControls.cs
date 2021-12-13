@@ -24,7 +24,7 @@ public class AnimateMoveControls : MonoBehaviour
 
 	public float CurYVel;
 
-	public GameObject[] cameras;
+	public Camera[] cameras;
 
 	float groundGrav = -.5f;
 
@@ -93,7 +93,8 @@ public class AnimateMoveControls : MonoBehaviour
 	void VarSetup()
 	{
 
-		cameras = GameObject.FindGameObjectsWithTag("MainCamera");
+		//cameras = GameObject.FindGameObjectsWithTag("MainCamera");
+		cameras = Camera.allCameras;
 		Grav = (-2 * JumpH / Mathf.Pow(JumpT / 2, 2));
 		groundGrav = (-2 * JumpH / Mathf.Pow(JumpT / 2, 2)) / 50;
 		JumpForce = (4 * JumpH) / JumpT;
@@ -101,9 +102,9 @@ public class AnimateMoveControls : MonoBehaviour
 		for (int i = 0; i < cameras.Length; i++)
 		{
 			if (i != curCam)
-				cameras[i].SetActive(false);
+				cameras[i].gameObject.SetActive(false);
 			else
-				cameras[i].SetActive(true);
+				cameras[i].gameObject.SetActive(true);
 		}
 	}
 
@@ -174,9 +175,9 @@ public class AnimateMoveControls : MonoBehaviour
 			target = cameras[curCam].transform;
 			for (int i=0;i< cameras.Length; i++) 
 			{if (i != curCam)
-					cameras[i].SetActive(false);
+					cameras[i].gameObject.SetActive(false);
 				else
-					cameras[i].SetActive(true);
+					cameras[i].gameObject.SetActive(true);
 			}
 		
 	}

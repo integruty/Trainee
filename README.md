@@ -1,3 +1,3 @@
 # Trainee
 project
-Platformer Game with camera based controls
+Arena Fight game based on upgrading modular characher
